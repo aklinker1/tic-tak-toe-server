@@ -1,0 +1,7 @@
+/api
+/bin
+.gitingore
+docker-compose.yml
+Dockerfile
+Makefile
+README.md
