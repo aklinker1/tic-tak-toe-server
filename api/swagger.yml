@@ -4,6 +4,8 @@ info:
   version: 0.1.0
   title: Tic-Tak-Toe Server
 
+consumes:
+  - application/json
 produces:
   - application/json
 
@@ -15,6 +17,8 @@ paths:
       responses:
         204:
           description: Server is up
+        default:
+          $ref: '#/responses/unknown'
   /games:
     post:
       operationId: startGame
@@ -23,23 +27,78 @@ paths:
         201:
           description: Game was started successfully
           schema:
+            $ref: '#/definitions/Game'
+        default:
+          $ref: '#/responses/unknown'
+  /games/{gameId}/stop:
+    post:
+      operationId: quitGame
+      description: Quit a game that is in progress
+      parameters:
+        - $ref: '#/parameters/gameId'
+      responses:
+        200:
+          description: The game was stopped successfully
+          schema:
+            type: string
+        default:
+          $ref: '#/responses/unknown'
+  /games/{gameId}/moves:
+    post:
+      operationId: playMove
+      description: Play a move
+      parameters:
+        - $ref: '#/parameters/gameId'
+      responses:
+        200:
+          description: The move was played or the game has ended
+          schema:
+            type: string
+        400:
+          description: An invalid move was played
+          schema:
+            type: string
+        default:
+          $ref: '#/responses/unknown'
+
+responses:
+  unknown:
+    description: Unknown Error
+    schema:
+      type: string
+
+parameters:
+  gameId:
+    name: gameId
+    in: path
+    required: true
+    type: string
+    description: The id of the game that will be effected by the operation
 
 definitions:
+  Player:
+    type: string
+    enum: [P1, P2]
   Move:
     type: object
     properties:
       id:
         type: integer
         format: int64
-      player:
+      playedAt:
         type: string
-        enum: [p1, p2]
-
-
+        format: date-time
+        description: The time the move was played at
+      position:
+        type: integer
+        description: The index (from left to right, top to bottom) of the move on the board
+      player:
+        $ref: '#/definitions/Player'
   Game:
     type: object
     default:
       size: 3
+      status: IN_PROGRESS
     properties:
       id:
         type: integer
@@ -48,3 +107,13 @@ definitions:
       size:
         type: integer
         description: The board size (n by n)
+      status:
+        type: string
+        enum: [IN_PROGRESS, COMPLETED]
+      winner:
+        $ref: '#/definitions/Player'
+        x-nullable: true
+      moves:
+        type: array
+        items:
+          $ref: '#/definitions/Move'
