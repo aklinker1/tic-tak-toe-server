@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/aklinker1/tic-tak-toe-server/package/server"
 
 func main() {
-	fmt.Println("test")
+	server.Start()
 }

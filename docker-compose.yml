@@ -1,6 +1,8 @@
 services:
   server:
     image: aklinker1/tic-tak-toe-server:dev
+    ports: 
+      - 3000:3000
     environment: 
       DATABASE_URL: postgres://postgres:password@db:5432/tic-tak-toe-local
   db:
