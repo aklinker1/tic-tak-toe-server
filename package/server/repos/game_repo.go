@@ -26,7 +26,7 @@ func (repo *gameRepo) Create() (*entities.Game, error) {
 
 func (repo *gameRepo) Read(id int64) (*entities.Game, error) {
 	game := &entities.Game{}
-	err := repo.DB.Model(&entities.Game{}).First(game, id).Error
+	err := repo.DB.First(game, id).Error
 	if err != nil {
 		return nil, err
 	}

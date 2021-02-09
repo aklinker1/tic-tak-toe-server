@@ -11,6 +11,8 @@ Simple tic tac toe server that you play via http requests.
 - **`1:46:00`** - Quit game finished
 - **`1:56:00`** - README finalized with playing instructions
 - **`2:23:00`** - Switched output to board as text
+- **`3:05:00`** - Can play moves
+- **`4:01:00`** - Got AI setup, victory check function still broken, been working on that for 45 min lol I'm done
 
 ## Playing
 

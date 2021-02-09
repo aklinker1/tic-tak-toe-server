@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/aklinker1/tic-tak-toe-server/package/server/database/entities"
@@ -30,6 +31,7 @@ func (repo *moveRepo) CreateOnGame(game *entities.Game, position int64, player m
 
 func (repo *moveRepo) ReadForGame(gameID int64) ([]entities.Move, error) {
 	moves := []entities.Move{}
-	err := repo.DB.Find(&moves).Where("game_id == ?", gameID).Error
+	err := repo.DB.Where("game_id = ?", gameID).Find(&moves).Error
+	fmt.Println(moves)
 	return moves, err
 }
