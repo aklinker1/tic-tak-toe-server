@@ -31,5 +31,10 @@ func Sprint(game *entities.Game) string {
 		fmt.Sprintf("| %s | %s | %s |", moves[6], moves[7], moves[8]),
 		"+---+---+---+",
 	}
+	if game.Status == "IN_PROGRESS" {
+		lines = append(lines, "Your move!")
+	} else {
+		lines = append(lines, fmt.Sprint("Winner:", game.Winner))
+	}
 	return strings.Join(lines, "\n")
 }

@@ -18,7 +18,7 @@ func (repo *gameRepo) Setup(db *gorm.DB) {
 func (repo *gameRepo) Create() (*entities.Game, error) {
 	game := &entities.Game{
 		Size:   3,
-		Status: "IN_PROGRES",
+		Status: "IN_PROGRESS",
 	}
 	err := repo.DB.Create(game).Error
 	return game, err
