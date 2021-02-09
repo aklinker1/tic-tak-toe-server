@@ -23,3 +23,13 @@ func (repo *gameRepo) Create() (*entities.Game, error) {
 	err := repo.DB.Create(game).Error
 	return game, err
 }
+
+func (repo *gameRepo) Read(id int64) (*entities.Game, error) {
+	game := &entities.Game{}
+	err := repo.DB.First(game, id).Error
+	return game, err
+}
+
+func (repo *gameRepo) Update(game *entities.Game) error {
+	return repo.DB.Save(game).Error
+}

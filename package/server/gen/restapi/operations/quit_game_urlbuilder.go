@@ -10,11 +10,13 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
+
+	"github.com/go-openapi/swag"
 )
 
 // QuitGameURL generates an URL for the quit game operation
 type QuitGameURL struct {
-	GameID string
+	GameID int64
 
 	_basePath string
 	// avoid unkeyed usage
@@ -40,9 +42,9 @@ func (o *QuitGameURL) SetBasePath(bp string) {
 func (o *QuitGameURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/games/{gameId}/stop"
+	var _path = "/games/{gameId}/quit"
 
-	gameID := o.GameID
+	gameID := swag.FormatInt64(o.GameID)
 	if gameID != "" {
 		_path = strings.Replace(_path, "{gameId}", gameID, -1)
 	} else {

@@ -75,7 +75,7 @@ func init() {
         }
       }
     },
-    "/games/{gameId}/stop": {
+    "/games/{gameId}/quit": {
       "post": {
         "description": "Quit a game that is in progress",
         "operationId": "quitGame",
@@ -87,6 +87,12 @@ func init() {
         "responses": {
           "200": {
             "description": "The game was stopped successfully",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "The game is already over",
             "schema": {
               "type": "string"
             }
@@ -179,7 +185,8 @@ func init() {
   },
   "parameters": {
     "gameId": {
-      "type": "string",
+      "type": "integer",
+      "format": "int64",
       "description": "The id of the game that will be effected by the operation",
       "name": "gameId",
       "in": "path",
@@ -234,7 +241,8 @@ func init() {
         "operationId": "playMove",
         "parameters": [
           {
-            "type": "string",
+            "type": "integer",
+            "format": "int64",
             "description": "The id of the game that will be effected by the operation",
             "name": "gameId",
             "in": "path",
@@ -263,13 +271,14 @@ func init() {
         }
       }
     },
-    "/games/{gameId}/stop": {
+    "/games/{gameId}/quit": {
       "post": {
         "description": "Quit a game that is in progress",
         "operationId": "quitGame",
         "parameters": [
           {
-            "type": "string",
+            "type": "integer",
+            "format": "int64",
             "description": "The id of the game that will be effected by the operation",
             "name": "gameId",
             "in": "path",
@@ -279,6 +288,12 @@ func init() {
         "responses": {
           "200": {
             "description": "The game was stopped successfully",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "The game is already over",
             "schema": {
               "type": "string"
             }
@@ -377,7 +392,8 @@ func init() {
   },
   "parameters": {
     "gameId": {
-      "type": "string",
+      "type": "integer",
+      "format": "int64",
       "description": "The id of the game that will be effected by the operation",
       "name": "gameId",
       "in": "path",

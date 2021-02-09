@@ -30,7 +30,7 @@ paths:
             $ref: '#/definitions/Game'
         default:
           $ref: '#/responses/unknown'
-  /games/{gameId}/stop:
+  /games/{gameId}/quit:
     post:
       operationId: quitGame
       description: Quit a game that is in progress
@@ -39,6 +39,10 @@ paths:
       responses:
         200:
           description: The game was stopped successfully
+          schema:
+            type: string
+        400:
+          description: The game is already over
           schema:
             type: string
         default:
@@ -72,7 +76,8 @@ parameters:
     name: gameId
     in: path
     required: true
-    type: string
+    type: integer
+    format: int64
     description: The id of the game that will be effected by the operation
 
 definitions:

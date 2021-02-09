@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewPlayMoveParams creates a new PlayMoveParams object
@@ -33,7 +34,7 @@ type PlayMoveParams struct {
 	  Required: true
 	  In: path
 	*/
-	GameID string
+	GameID int64
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -66,7 +67,11 @@ func (o *PlayMoveParams) bindGameID(rawData []string, hasKey bool, formats strfm
 	// Required: true
 	// Parameter is provided by construction from the route
 
-	o.GameID = raw
+	value, err := swag.ConvertInt64(raw)
+	if err != nil {
+		return errors.InvalidType("gameId", "path", "int64", raw)
+	}
+	o.GameID = value
 
 	return nil
 }

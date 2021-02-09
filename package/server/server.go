@@ -17,7 +17,7 @@ import (
 func useControllers(api *operations.TicTakToeAPI) {
 	controllers.UseHealthController(api)
 	controllers.UseStartGameController(api)
-	// controllers.UsePluginsController(api)
+	controllers.UseQuitGameController(api)
 }
 
 func Start() {

@@ -10,11 +10,13 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
+
+	"github.com/go-openapi/swag"
 )
 
 // PlayMoveURL generates an URL for the play move operation
 type PlayMoveURL struct {
-	GameID string
+	GameID int64
 
 	_basePath string
 	// avoid unkeyed usage
@@ -42,7 +44,7 @@ func (o *PlayMoveURL) Build() (*url.URL, error) {
 
 	var _path = "/games/{gameId}/moves"
 
-	gameID := o.GameID
+	gameID := swag.FormatInt64(o.GameID)
 	if gameID != "" {
 		_path = strings.Replace(_path, "{gameId}", gameID, -1)
 	} else {

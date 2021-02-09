@@ -29,7 +29,7 @@ func NewQuitGame(ctx *middleware.Context, handler QuitGameHandler) *QuitGame {
 	return &QuitGame{Context: ctx, Handler: handler}
 }
 
-/*QuitGame swagger:route POST /games/{gameId}/stop quitGame
+/*QuitGame swagger:route POST /games/{gameId}/quit quitGame
 
 Quit a game that is in progress
 

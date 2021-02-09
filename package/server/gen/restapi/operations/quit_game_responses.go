@@ -53,6 +53,48 @@ func (o *QuitGameOK) WriteResponse(rw http.ResponseWriter, producer runtime.Prod
 	}
 }
 
+// QuitGameBadRequestCode is the HTTP code returned for type QuitGameBadRequest
+const QuitGameBadRequestCode int = 400
+
+/*QuitGameBadRequest The game is already over
+
+swagger:response quitGameBadRequest
+*/
+type QuitGameBadRequest struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
+}
+
+// NewQuitGameBadRequest creates QuitGameBadRequest with default headers values
+func NewQuitGameBadRequest() *QuitGameBadRequest {
+
+	return &QuitGameBadRequest{}
+}
+
+// WithPayload adds the payload to the quit game bad request response
+func (o *QuitGameBadRequest) WithPayload(payload string) *QuitGameBadRequest {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the quit game bad request response
+func (o *QuitGameBadRequest) SetPayload(payload string) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *QuitGameBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(400)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
+}
+
 /*QuitGameDefault Unknown Error
 
 swagger:response quitGameDefault

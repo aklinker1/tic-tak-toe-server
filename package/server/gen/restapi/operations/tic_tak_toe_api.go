@@ -283,7 +283,7 @@ func (o *TicTakToeAPI) initHandlerCache() {
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/games/{gameId}/stop"] = NewQuitGame(o.context, o.QuitGameHandler)
+	o.handlers["POST"]["/games/{gameId}/quit"] = NewQuitGame(o.context, o.QuitGameHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
