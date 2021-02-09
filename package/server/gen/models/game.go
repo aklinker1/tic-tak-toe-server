@@ -34,7 +34,7 @@ type Game struct {
 	Status string `json:"status,omitempty"`
 
 	// winner
-	Winner Player `json:"winner,omitempty"`
+	Winner *Player `json:"winner,omitempty"`
 }
 
 func (m *Game) UnmarshalJSON(b []byte) error {
@@ -146,11 +146,13 @@ func (m *Game) validateWinner(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := m.Winner.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("winner")
+	if m.Winner != nil {
+		if err := m.Winner.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("winner")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil

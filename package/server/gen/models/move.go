@@ -24,8 +24,8 @@ type Move struct {
 	// Format: date-time
 	PlayedAt strfmt.DateTime `json:"playedAt,omitempty"`
 
-	// player
-	Player Player `json:"player,omitempty"`
+	// played by
+	PlayedBy *Player `json:"playedBy,omitempty"`
 
 	// The index (from left to right, top to bottom) of the move on the board
 	Position int64 `json:"position,omitempty"`
@@ -39,7 +39,7 @@ func (m *Move) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePlayer(formats); err != nil {
+	if err := m.validatePlayedBy(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,17 +62,19 @@ func (m *Move) validatePlayedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Move) validatePlayer(formats strfmt.Registry) error {
+func (m *Move) validatePlayedBy(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Player) { // not required
+	if swag.IsZero(m.PlayedBy) { // not required
 		return nil
 	}
 
-	if err := m.Player.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("player")
+	if m.PlayedBy != nil {
+		if err := m.PlayedBy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("playedBy")
+			}
+			return err
 		}
-		return err
 	}
 
 	return nil

@@ -143,7 +143,6 @@ func init() {
           ]
         },
         "winner": {
-          "x-nullable": true,
           "$ref": "#/definitions/Player"
         }
       }
@@ -160,7 +159,7 @@ func init() {
           "type": "string",
           "format": "date-time"
         },
-        "player": {
+        "playedBy": {
           "$ref": "#/definitions/Player"
         },
         "position": {
@@ -174,7 +173,8 @@ func init() {
       "enum": [
         "P1",
         "P2"
-      ]
+      ],
+      "x-nullable": true
     }
   },
   "parameters": {
@@ -341,7 +341,6 @@ func init() {
           ]
         },
         "winner": {
-          "x-nullable": true,
           "$ref": "#/definitions/Player"
         }
       }
@@ -358,7 +357,7 @@ func init() {
           "type": "string",
           "format": "date-time"
         },
-        "player": {
+        "playedBy": {
           "$ref": "#/definitions/Player"
         },
         "position": {
@@ -372,7 +371,8 @@ func init() {
       "enum": [
         "P1",
         "P2"
-      ]
+      ],
+      "x-nullable": true
     }
   },
   "parameters": {

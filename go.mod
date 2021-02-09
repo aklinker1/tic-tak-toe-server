@@ -12,5 +12,6 @@ require (
 	github.com/go-openapi/validate v0.19.10
 	github.com/jessevdk/go-flags v1.4.0
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9
-	gorm.io/gorm v1.20.12 // indirect
+	gorm.io/driver/postgres v1.0.8
+	gorm.io/gorm v1.20.12
 )

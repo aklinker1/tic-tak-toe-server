@@ -5,6 +5,8 @@ services:
       - 3000:3000
     environment: 
       DATABASE_URL: postgres://postgres:password@db:5432/tic-tak-toe-local
+    links: 
+      - db
   db:
     image: postgres:alpine
     environment: 

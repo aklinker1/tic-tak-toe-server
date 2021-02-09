@@ -3,18 +3,20 @@ package server
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/aklinker1/tic-tak-toe-server/package/server/controllers"
+	"github.com/aklinker1/tic-tak-toe-server/package/server/database"
+	"github.com/aklinker1/tic-tak-toe-server/package/server/database/entities"
 	"github.com/aklinker1/tic-tak-toe-server/package/server/gen/restapi"
 	"github.com/aklinker1/tic-tak-toe-server/package/server/gen/restapi/operations"
+	"github.com/aklinker1/tic-tak-toe-server/package/server/repos"
 	"github.com/go-openapi/loads"
 )
 
 func useControllers(api *operations.TicTakToeAPI) {
 	controllers.UseHealthController(api)
-	// controllers.UseAppsController(api)
+	controllers.UseStartGameController(api)
 	// controllers.UsePluginsController(api)
 }
 
@@ -36,12 +38,16 @@ func Start() {
 	flag.Parse()
 	server.Port = *portFlag
 
+	db := database.Connect(&entities.Game{}, &entities.Move{})
+	repos.Game.Setup(db)
+
 	// Use handlers
 	useControllers(api)
 	server.ConfigureAPI()
 
 	// Serve API
 	if err := server.Serve(); err != nil {
-		log.Fatal("%v", err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }

@@ -79,6 +79,7 @@ definitions:
   Player:
     type: string
     enum: [P1, P2]
+    x-nullable: true
   Move:
     type: object
     properties:
@@ -92,7 +93,7 @@ definitions:
       position:
         type: integer
         description: The index (from left to right, top to bottom) of the move on the board
-      player:
+      playedBy:
         $ref: '#/definitions/Player'
   Game:
     type: object
@@ -112,7 +113,6 @@ definitions:
         enum: [IN_PROGRESS, COMPLETED]
       winner:
         $ref: '#/definitions/Player'
-        x-nullable: true
       moves:
         type: array
         items:
