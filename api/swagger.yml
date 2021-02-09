@@ -4,10 +4,8 @@ info:
   version: 0.1.0
   title: Tic-Tak-Toe Server
 
-consumes:
-  - application/json
 produces:
-  - application/json
+  - text/plain
 
 paths:
   /health:
@@ -27,7 +25,7 @@ paths:
         201:
           description: Game was started successfully
           schema:
-            $ref: '#/definitions/Game'
+            type: string
         default:
           $ref: '#/responses/unknown'
   /games/{gameId}/quit:
@@ -57,7 +55,9 @@ paths:
         200:
           description: The move was played or the game has ended
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         400:
           description: An invalid move was played
           schema:

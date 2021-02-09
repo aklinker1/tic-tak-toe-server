@@ -35,7 +35,7 @@ func configureAPI(api *operations.TicTakToeAPI) http.Handler {
 
 	api.JSONConsumer = runtime.JSONConsumer()
 
-	api.JSONProducer = runtime.JSONProducer()
+	api.TxtProducer = runtime.TextProducer()
 
 	if api.CheckHealthHandler == nil {
 		api.CheckHealthHandler = operations.CheckHealthHandlerFunc(func(params operations.CheckHealthParams) middleware.Responder {

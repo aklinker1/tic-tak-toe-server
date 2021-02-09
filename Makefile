@@ -3,6 +3,7 @@ build:
 run: build
 	docker-compose up
 gen:
+	mkdir -p package/server/gen
 	swagger generate server -t package/server/gen -f api/swagger.yml --exclude-main -A tic-tak-toe
 
 # Aliases

@@ -9,8 +9,6 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
-
-	"github.com/aklinker1/tic-tak-toe-server/package/server/gen/models"
 )
 
 // StartGameCreatedCode is the HTTP code returned for type StartGameCreated
@@ -25,7 +23,7 @@ type StartGameCreated struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Game `json:"body,omitempty"`
+	Payload string `json:"body,omitempty"`
 }
 
 // NewStartGameCreated creates StartGameCreated with default headers values
@@ -35,13 +33,13 @@ func NewStartGameCreated() *StartGameCreated {
 }
 
 // WithPayload adds the payload to the start game created response
-func (o *StartGameCreated) WithPayload(payload *models.Game) *StartGameCreated {
+func (o *StartGameCreated) WithPayload(payload string) *StartGameCreated {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the start game created response
-func (o *StartGameCreated) SetPayload(payload *models.Game) {
+func (o *StartGameCreated) SetPayload(payload string) {
 	o.Payload = payload
 }
 
@@ -49,11 +47,9 @@ func (o *StartGameCreated) SetPayload(payload *models.Game) {
 func (o *StartGameCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(201)
-	if o.Payload != nil {
-		payload := o.Payload
-		if err := producer.Produce(rw, payload); err != nil {
-			panic(err) // let the recovery middleware deal with this
-		}
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
 	}
 }
 

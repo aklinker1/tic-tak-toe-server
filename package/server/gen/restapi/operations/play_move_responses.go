@@ -23,7 +23,7 @@ type PlayMoveOK struct {
 	/*
 	  In: Body
 	*/
-	Payload string `json:"body,omitempty"`
+	Payload []string `json:"body,omitempty"`
 }
 
 // NewPlayMoveOK creates PlayMoveOK with default headers values
@@ -33,13 +33,13 @@ func NewPlayMoveOK() *PlayMoveOK {
 }
 
 // WithPayload adds the payload to the play move o k response
-func (o *PlayMoveOK) WithPayload(payload string) *PlayMoveOK {
+func (o *PlayMoveOK) WithPayload(payload []string) *PlayMoveOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the play move o k response
-func (o *PlayMoveOK) SetPayload(payload string) {
+func (o *PlayMoveOK) SetPayload(payload []string) {
 	o.Payload = payload
 }
 
@@ -48,6 +48,11 @@ func (o *PlayMoveOK) WriteResponse(rw http.ResponseWriter, producer runtime.Prod
 
 	rw.WriteHeader(200)
 	payload := o.Payload
+	if payload == nil {
+		// return empty array
+		payload = make([]string, 0, 50)
+	}
+
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
 	}

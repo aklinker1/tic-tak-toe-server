@@ -18,11 +18,8 @@ var (
 
 func init() {
 	SwaggerJSON = json.RawMessage([]byte(`{
-  "consumes": [
-    "application/json"
-  ],
   "produces": [
-    "application/json"
+    "text/plain"
   ],
   "swagger": "2.0",
   "info": {
@@ -38,7 +35,7 @@ func init() {
           "201": {
             "description": "Game was started successfully",
             "schema": {
-              "$ref": "#/definitions/Game"
+              "type": "string"
             }
           },
           "default": {
@@ -60,7 +57,10 @@ func init() {
           "200": {
             "description": "The move was played or the game has ended",
             "schema": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "400": {
@@ -203,11 +203,8 @@ func init() {
   }
 }`))
 	FlatSwaggerJSON = json.RawMessage([]byte(`{
-  "consumes": [
-    "application/json"
-  ],
   "produces": [
-    "application/json"
+    "text/plain"
   ],
   "swagger": "2.0",
   "info": {
@@ -223,7 +220,7 @@ func init() {
           "201": {
             "description": "Game was started successfully",
             "schema": {
-              "$ref": "#/definitions/Game"
+              "type": "string"
             }
           },
           "default": {
@@ -253,7 +250,10 @@ func init() {
           "200": {
             "description": "The move was played or the game has ended",
             "schema": {
-              "type": "string"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "400": {
