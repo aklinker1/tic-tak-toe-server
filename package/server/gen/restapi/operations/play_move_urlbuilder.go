@@ -18,6 +18,8 @@ import (
 type PlayMoveURL struct {
 	GameID int64
 
+	Position *int64
+
 	_basePath string
 	// avoid unkeyed usage
 	_ struct{}
@@ -53,6 +55,18 @@ func (o *PlayMoveURL) Build() (*url.URL, error) {
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+
+	qs := make(url.Values)
+
+	var positionQ string
+	if o.Position != nil {
+		positionQ = swag.FormatInt64(*o.Position)
+	}
+	if positionQ != "" {
+		qs.Set("position", positionQ)
+	}
+
+	_result.RawQuery = qs.Encode()
 
 	return &_result, nil
 }

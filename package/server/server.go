@@ -18,6 +18,7 @@ func useControllers(api *operations.TicTakToeAPI) {
 	controllers.UseHealthController(api)
 	controllers.UseStartGameController(api)
 	controllers.UseQuitGameController(api)
+	controllers.UsePlayMoveController(api)
 }
 
 func Start() {
@@ -40,6 +41,7 @@ func Start() {
 
 	db := database.Connect(&entities.Game{}, &entities.Move{})
 	repos.Game.Setup(db)
+	repos.Move.Setup(db)
 
 	// Use handlers
 	useControllers(api)

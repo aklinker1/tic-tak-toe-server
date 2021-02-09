@@ -51,20 +51,28 @@ func init() {
         "parameters": [
           {
             "$ref": "#/parameters/gameId"
+          },
+          {
+            "type": "integer",
+            "name": "position",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "The move was played or the game has ended",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "type": "string"
             }
           },
           "400": {
             "description": "An invalid move was played",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "The game was not found",
             "schema": {
               "type": "string"
             }
@@ -244,20 +252,28 @@ func init() {
             "name": "gameId",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "integer",
+            "name": "position",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "The move was played or the game has ended",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "type": "string"
             }
           },
           "400": {
             "description": "An invalid move was played",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "The game was not found",
             "schema": {
               "type": "string"
             }

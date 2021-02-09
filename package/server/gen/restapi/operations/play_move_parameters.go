@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -35,6 +36,10 @@ type PlayMoveParams struct {
 	  In: path
 	*/
 	GameID int64
+	/*
+	  In: query
+	*/
+	Position *int64
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -46,8 +51,15 @@ func (o *PlayMoveParams) BindRequest(r *http.Request, route *middleware.MatchedR
 
 	o.HTTPRequest = r
 
+	qs := runtime.Values(r.URL.Query())
+
 	rGameID, rhkGameID, _ := route.Params.GetOK("gameId")
 	if err := o.bindGameID(rGameID, rhkGameID, route.Formats); err != nil {
+		res = append(res, err)
+	}
+
+	qPosition, qhkPosition, _ := qs.GetOK("position")
+	if err := o.bindPosition(qPosition, qhkPosition, route.Formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -72,6 +84,28 @@ func (o *PlayMoveParams) bindGameID(rawData []string, hasKey bool, formats strfm
 		return errors.InvalidType("gameId", "path", "int64", raw)
 	}
 	o.GameID = value
+
+	return nil
+}
+
+// bindPosition binds and validates parameter Position from query.
+func (o *PlayMoveParams) bindPosition(rawData []string, hasKey bool, formats strfmt.Registry) error {
+	var raw string
+	if len(rawData) > 0 {
+		raw = rawData[len(rawData)-1]
+	}
+
+	// Required: false
+	// AllowEmptyValue: false
+	if raw == "" { // empty values pass all other validations
+		return nil
+	}
+
+	value, err := swag.ConvertInt64(raw)
+	if err != nil {
+		return errors.InvalidType("position", "query", "int64", raw)
+	}
+	o.Position = &value
 
 	return nil
 }

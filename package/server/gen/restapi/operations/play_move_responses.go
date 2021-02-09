@@ -23,7 +23,7 @@ type PlayMoveOK struct {
 	/*
 	  In: Body
 	*/
-	Payload []string `json:"body,omitempty"`
+	Payload string `json:"body,omitempty"`
 }
 
 // NewPlayMoveOK creates PlayMoveOK with default headers values
@@ -33,13 +33,13 @@ func NewPlayMoveOK() *PlayMoveOK {
 }
 
 // WithPayload adds the payload to the play move o k response
-func (o *PlayMoveOK) WithPayload(payload []string) *PlayMoveOK {
+func (o *PlayMoveOK) WithPayload(payload string) *PlayMoveOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the play move o k response
-func (o *PlayMoveOK) SetPayload(payload []string) {
+func (o *PlayMoveOK) SetPayload(payload string) {
 	o.Payload = payload
 }
 
@@ -48,11 +48,6 @@ func (o *PlayMoveOK) WriteResponse(rw http.ResponseWriter, producer runtime.Prod
 
 	rw.WriteHeader(200)
 	payload := o.Payload
-	if payload == nil {
-		// return empty array
-		payload = make([]string, 0, 50)
-	}
-
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
 	}
@@ -94,6 +89,48 @@ func (o *PlayMoveBadRequest) SetPayload(payload string) {
 func (o *PlayMoveBadRequest) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(400)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
+}
+
+// PlayMoveNotFoundCode is the HTTP code returned for type PlayMoveNotFound
+const PlayMoveNotFoundCode int = 404
+
+/*PlayMoveNotFound The game was not found
+
+swagger:response playMoveNotFound
+*/
+type PlayMoveNotFound struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
+}
+
+// NewPlayMoveNotFound creates PlayMoveNotFound with default headers values
+func NewPlayMoveNotFound() *PlayMoveNotFound {
+
+	return &PlayMoveNotFound{}
+}
+
+// WithPayload adds the payload to the play move not found response
+func (o *PlayMoveNotFound) WithPayload(payload string) *PlayMoveNotFound {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the play move not found response
+func (o *PlayMoveNotFound) SetPayload(payload string) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *PlayMoveNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(404)
 	payload := o.Payload
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this

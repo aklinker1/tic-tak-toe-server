@@ -19,6 +19,7 @@ func Sprint(game *entities.Game) string {
 		if *move.PlayedBy == models.PlayerP2 {
 			sign = "o"
 		}
+		fmt.Println(move.Position)
 		moves[int(move.Position)-1] = sign
 	}
 	lines := []string{

@@ -8,8 +8,8 @@ import (
 
 type Move struct {
 	ID       int64          `json:"id" gorm:"primarykey"`
-	Position uint           `json:"position"`
+	Position int64          `json:"position"`
 	PlayedBy *models.Player `json:"playedBy"`
 	PlayedAt time.Time      `json:"playedAt"`
-	GameID   uint64         `json:"omit"`
+	GameID   int64          `json:"omit"`
 }
